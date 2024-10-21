@@ -3,7 +3,7 @@ import Button from "../Elements/Button/Index";
 const CardProduct = (props) => {
   const { children } = props;
   return (
-    <div className="w-full max-w-sm bg-gray-400 border border-gray-200 rounded-lg shadow m-2 flex flex-col justify-between">
+    <div className="w-full max-w-md bg-gray-400 border border-gray-200 rounded-lg shadow m-2 flex flex-col justify-between">
       {children}
     </div>
   );
@@ -26,18 +26,23 @@ const Body = (props) => {
         <h5 className="text-xl text-white font-semibold tracking-tight">
           {title}
         </h5>
-        <p className="text-m text-white">{children}</p> 
+        <p className="text-m text-white">{children}</p>
       </a>
     </div>
   );
 };
 
 const Footer = (props) => {
-  const { price } = props;
+  const { price, onClick, id } = props;
+
+  const formattedHarga = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(price);
   return (
     <div className="flex items-center justify-between px-5 pb-5">
-      <span className="text-xl font-bold text-white">{price}</span>
-      <Button classname="bg-blue-600 text-white" title="Add To Cart" />
+      <span className="text-xl font-bold text-white">{formattedHarga}</span>
+      <Button classname="bg-blue-600 text-white" onClick={() => onClick(id)} >Add To Card</Button>
     </div>
   );
 };

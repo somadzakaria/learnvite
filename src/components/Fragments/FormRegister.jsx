@@ -28,10 +28,9 @@ const FormRegister = () => {
         placeholder="***"
         title="Re-Type Password"
       ></InputForm>
-      <Button
-        classname="bg-blue-600 text-white font-semibold w-full"
-        title="Register"
-      />
+      <Button classname="bg-blue-600 text-white font-semibold w-full">
+        Register
+      </Button>
     </form>
   );
 };
