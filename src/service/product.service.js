@@ -11,4 +11,15 @@ const getProduct = (callback) => {
     });
 };
 
-export default getProduct;
+const getDetailProduk = (id, callback) => {
+  axios
+    .get(`https://fakestoreapi.com/products/${id}`)
+    .then((res) => {
+      callback(res.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export default { getProduct, getDetailProduk };

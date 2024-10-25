@@ -6,6 +6,8 @@ import LoginPage from "./pages/login.jsx";
 import RegisterPage from "./pages/register.jsx";
 import ErrorPage from "./pages/404.jsx";
 import ProductPage from "./pages/product.jsx";
+import ProfilePage from "./pages/profile.jsx";
+import DetailProduk from "./pages/detaiProduk.jsx";
 
 const rouer = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const rouer = createBrowserRouter([
     path: "/product",
     element: <ProductPage />,
   },
+  {
+    path: "/profile",
+    element: <ProfilePage />
+  }, 
+  {
+    path: "/product/:id",
+    element: <DetailProduk />
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(

@@ -1,64 +1,22 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import Button from "../components/Elements/Button/Index";
 import CardProduct from "../components/Fragments/CardProduct";
-import getProduct from "../service/product.service";
+import productService from "../service/product.service";
 import authService from "../service/auth.service";
-
-// const products = [
-//   {
-//     id: 1,
-//     name: "Sepatu Adidas",
-//     price: "500000",
-//     description:
-//       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia deserunt dolor ipsa alias maxime in?",
-//     urlImage: "/images/img1.jpg",
-//     alt: "product",
-//   },
-//   {
-//     id: 2,
-//     name: "Sepatu Nike",
-//     price: "500000",
-//     description: "Lorem ipsum dolor sit amet.",
-//     urlImage: "/images/img1.jpg",
-//     alt: "product",
-//   },
-//   {
-//     id: 3,
-//     name: "Sepatu Nike",
-//     price: "500000",
-//     description: "Lorem ipsum dolor sit amet.",
-//     urlImage: "/images/img1.jpg",
-//     alt: "product",
-//   },
-//   {
-//     id: 4,
-//     name: "Sepatu Nike",
-//     price: "500000",
-//     description: "Lorem ipsum dolor sit amet.",
-//     urlImage: "/images/img1.jpg",
-//     alt: "product",
-//   },
-// ];
-
-const token = localStorage.getItem("token");
+import { useLogin } from "../hooks/useLogin";
 
 const ProductPage = () => {
   const [cart, setCart] = useState([]);
   const [totalPricess, setTotalPricess] = useState(0);
   const [products, setProducst] = useState([]);
-  const [username, setUsername] = useState("");
+
+  const username = useLogin();
   useEffect(() => {
     setCart(JSON.parse(localStorage.getItem("cart")) || []);
-
-    if (!token) {
-      window.location.href = "/login";
-    } else {
-      setUsername(authService.getUsername(token));
-    }
   }, []);
 
   useEffect(() => {
-    getProduct((data) => {
+    productService.getProduct((data) => {
       setProducst(data);
     });
 
@@ -120,7 +78,7 @@ const ProductPage = () => {
             products.map((e) => {
               return (
                 <CardProduct key={e.id}>
-                  <CardProduct.Header urlImage={e.image} alt={e.title} />
+                  <CardProduct.Header urlImage={e.image} alt={e.title} id={e.id} />
                   <CardProduct.Body title={e.title}>
                     {e.description}
                   </CardProduct.Body>
