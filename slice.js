@@ -29,11 +29,9 @@ store.dispatch(
   })
 );
 
-
 store.dispatch(
-    cartSlice.actions.addToCart({
-      id: 212,
-      qty: 2012,
-    })
-  );
-  
+  cartSlice.actions.addToCart({
+    id: 212,
+    qty: 2012,
+  })
+);

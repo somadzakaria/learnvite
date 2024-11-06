@@ -8,6 +8,11 @@ import ErrorPage from "./pages/404.jsx";
 import ProductPage from "./pages/product.jsx";
 import ProfilePage from "./pages/profile.jsx";
 import DetailProduk from "./pages/detaiProduk.jsx";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import NavbarPage from "./components/Layouts/Navbar.jsx";
+import DarkModeContextProvider from "./context/DarkMode.jsx";
+import { TotalPriceProvider } from "./context/TotalPriceContext.jsx";
 
 const rouer = createBrowserRouter([
   {
@@ -33,16 +38,24 @@ const rouer = createBrowserRouter([
   },
   {
     path: "/profile",
-    element: <ProfilePage />
-  }, 
+    element: <ProfilePage />,
+  },
   {
     path: "/product/:id",
-    element: <DetailProduk />
-  }
+    element: <DetailProduk />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={rouer}></RouterProvider>
+    <Provider store={store}>
+      {/* <NavbarPage /> */}
+
+      <DarkModeContextProvider>
+        <TotalPriceProvider>
+          <RouterProvider router={rouer}></RouterProvider>
+        </TotalPriceProvider>
+      </DarkModeContextProvider>
+    </Provider>
   </StrictMode>
 );

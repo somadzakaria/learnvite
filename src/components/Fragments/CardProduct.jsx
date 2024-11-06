@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../Elements/Button/Index";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/slice/cartSlice";
 
 const CardProduct = (props) => {
   const { children } = props;
@@ -11,10 +13,14 @@ const CardProduct = (props) => {
 };
 
 const Header = (props) => {
-  const { urlImage, alt , id} = props;
+  const { urlImage, alt, id } = props;
   return (
     <Link to={`/product/${id}`}>
-      <img src={urlImage} alt={alt} className="p-8 rounded-t-md h-60 w-full object-cover" />
+      <img
+        src={urlImage}
+        alt={alt}
+        className="p-8 rounded-t-md h-60 w-full object-cover"
+      />
     </Link>
   );
 };
@@ -34,8 +40,8 @@ const Body = (props) => {
 };
 
 const Footer = (props) => {
-  const { price, onClick, id } = props;
-
+  const { price, id } = props;
+  const dispatch = useDispatch();
   const formattedHarga = new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "USD",
@@ -43,7 +49,19 @@ const Footer = (props) => {
   return (
     <div className="flex items-center justify-between px-5 pb-5">
       <span className="text-xl font-bold text-white">{formattedHarga}</span>
-      <Button classname="bg-blue-600 text-white" onClick={() => onClick(id)} >Add To Card</Button>
+      <Button
+        classname="bg-blue-600 text-white"
+        onClick={() =>
+          dispatch(
+            addToCart({
+              id,
+              qty: 1,
+            })
+          )
+        }
+      >
+        Add To Card
+      </Button>
     </div>
   );
 };
